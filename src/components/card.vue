@@ -21,9 +21,14 @@
         </div>
         <h3>{{element.original_title ? element.original_title : element.original_name}}</h3>
 
-        <i v-for="rate in ratings" :key="rate" class="fas fa-star"></i>
-        <i v-if="!this.element.vote_average" class="fas fa-exclamation-triangle"> No reviews to display </i>
-        <i v-else v-for="rate in (5 - ratings)" :key="rate" class="far fa-star"></i>
+        <template v-if="!this.element.vote_average">
+            No reviews to display
+        </template>
+        
+         <template v-else>
+            <i v-for="rate in ratings" :key="rate" class="fas fa-star"></i>
+            <i v-for="rate in (5 - ratings)" :key="rate+ratings" class="far fa-star"></i>
+        </template>
 
     </div>
 </template>
@@ -35,7 +40,7 @@ name: "Card",
 props: ["element"],
 computed: {
     ratings() {
-        return (this.element.vote_average)/2
+        return Math.round(Math.ceil(this.element.vote_average)/2)
     }
 }
 }
