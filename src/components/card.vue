@@ -5,10 +5,12 @@
 
         <div class="language_container">
             <img :src="element.original_language == 'it' ? require('../assets/img/italian-flag.png')
-            : element.original_language == 'en' ?  require('../assets/img/english-flag.png')
-            : element.original_language == 'us' ? require('../assets/img/usa-flag.png')
-            : ''">  
+                : element.original_language == 'en' ?  require('../assets/img/english-flag.png')
+                : element.original_language == 'us' ? require('../assets/img/usa-flag.png')
+                : ''">
+            <h4>{{element.original_language}}</h4>  
         </div>
+
         <h5>{{element.vote_average}}</h5>
     </div>
 </template>
@@ -25,7 +27,7 @@ props: ["element"],
 
 .language_container {
     img {
-        width: 25%;
+        width: 15%;
     }
 }
 </style>

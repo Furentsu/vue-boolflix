@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @searchInProgress="searching"/>
-    <Main :selectedMedia="this.selection" />
+    <Main :selectedMedia="this.movieSelection" />
   </div>
 </template>
 
@@ -19,20 +19,33 @@ export default {
   },
   data() {
     return {
-      selection: [],
+      movieSelection: [],
+      tvShowSelection: []
     }
   },
   methods: {
     searching(needle) {
       if(needle.length > 0) {
-        axios.get('https://api.themoviedb.org/3/search/movie?api_key=f56e12057ed47757364db57c060ce5d8', {
-        params: {
-          query: needle,
-        }
-      }) .then((response) => {
-            this.selection = [...response.data.results]
-            console.log(this.selection)
+
+        const movieRequest = axios.get('https://api.themoviedb.org/3/search/movie?api_key=f56e12057ed47757364db57c060ce5d8', {
+          params: {
+            query: needle,
+          }
         })
+
+        const seriesRequest = axios.get('https://api.themoviedb.org/3/search/tv?api_key=f56e12057ed47757364db57c060ce5d8', {
+          params: {
+            query: needle,
+          }
+        })
+
+        axios.all([movieRequest, seriesRequest]).then(axios.spread((...responses) => {
+          this.movieSelection = [...responses[0].data.results]
+          this.tvShowSelection = [...responses[1].data.results]
+
+        })) .catch(errors => {
+              console.log(errors)
+            })
       }
     }
   }
@@ -48,4 +61,15 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// import axios from 'axios';
+ 
+// let one = "https://api.storyblok.com/v1/cdn/stories/health?version=published&token=wANpEQEsMYGOwLxwXQ76Ggtt"
+// let two = "https://api.storyblok.com/v1/cdn/datasources/?token=wANpEQEsMYGOwLxwXQ76Ggtt"
+// let three = "https://api.storyblok.com/v1/cdn/stories/vue?version=published&token=wANpEQEsMYGOwLxwXQ76Ggtt"
+ 
+// const requestOne = axios.get(one);
+// const requestTwo = axios.get(two);
+// const requestThree = axios.get(three);
+
 </style>
