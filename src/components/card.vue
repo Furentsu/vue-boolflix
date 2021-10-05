@@ -1,6 +1,14 @@
 <template>
     <div class="col-3 p-4 text-center">
-        <h1>{{element.title ? element.title : element.name}}</h1>
+        <div class="poster-displayer" v-if="element.poster_path">
+            <img class="img-fluid" :src="'https://image.tmdb.org/t/p/w342' + element.poster_path">
+        </div>
+
+        <div class="poster-displayer" v-else>
+            <img class="img-fluid" src="../assets/img/poster-placeholder.png">
+        </div>
+
+        <h2 class="fw-bold pt-4 pb-3">{{element.title ? element.title : element.name}}</h2>
 
         <div class="language_container">
             <img :src="element.original_language == 'it' ? require('../assets/img/italian-flag.png')

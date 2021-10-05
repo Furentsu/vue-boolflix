@@ -7,7 +7,7 @@
       <img src="../assets/img/fakeflix.png" alt="Boolflix's logo">
 
       <!-- Searchbar -->
-      <input v-model.trim="search" type="text">
+      <input v-model.trim="search" type="text" @keyup.enter="$emit('searchInProgress', search)">
       <button type="button" @click="$emit('searchInProgress', search)">Search</button>
     </div>
   </div>
