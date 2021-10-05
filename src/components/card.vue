@@ -22,7 +22,7 @@
         <h3>{{element.original_title ? element.original_title : element.original_name}}</h3>
 
         <template v-if="!this.element.vote_average">
-            No reviews to display
+            <i class="fas fa-exclamation-triangle"> No reviews to display</i>
         </template>
         
          <template v-else>
