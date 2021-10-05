@@ -1,7 +1,13 @@
 <template>
   <div class="container">
       <div class="row">
-            <Card v-for="media in selectedMedia" :key="media.id" :element="media"/>  
+            <h2 class="text-center m-5">Films</h2>
+            <Card v-for="media in selectedMovies" :key="media.id" :element="media"/>  
+      </div>
+
+      <div class="row">
+            <h2 class="text-center m-5">Tv Series</h2>
+            <Card v-for="media in selectedSeries" :key="media.id" :element="media"/>  
       </div>
   </div>
 </template>
@@ -15,7 +21,8 @@ export default {
     Card,
   },
   props: {
-    selectedMedia: Array,
+    selectedMovies: Array,
+    selectedSeries: Array
   }
 }
 </script>
