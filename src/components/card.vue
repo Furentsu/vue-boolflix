@@ -20,7 +20,11 @@
                 element.original_language != 'us'">{{element.original_language.toUpperCase()}}</h4>  
         </div>
         <h3>{{element.original_title ? element.original_title : element.original_name}}</h3>
-        <h5>{{element.vote_average}}</h5>
+
+        <i v-for="rate in ratings" :key="rate" class="fas fa-star"></i>
+        <i v-if="!this.element.vote_average" class="fas fa-exclamation-triangle"> No reviews to display </i>
+        <i v-else v-for="rate in (5 - ratings)" :key="rate" class="far fa-star"></i>
+
     </div>
 </template>
 
@@ -29,6 +33,11 @@
 export default {
 name: "Card",
 props: ["element"],
+computed: {
+    ratings() {
+        return (this.element.vote_average)/2
+    }
+}
 }
 </script>
 
@@ -36,7 +45,7 @@ props: ["element"],
 
 .language_container {
     img {
-        width: 50px;
+        width: 30px;
     }
 }
 </style>
